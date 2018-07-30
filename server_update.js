@@ -30,6 +30,9 @@ MongoClient.connect(db.url, (err, database) => {
 
         })
     }
+
+    /*x.id = parseInt(x.id);
+    DB.collection('notes').save(x);*/
   });
 
 })

@@ -65,6 +65,8 @@ MongoClient.connect(db.url, (err, database) => {
 
                           let history = JSON.parse(response4).results;
                           item.history = history;
+                          item.id = parseInt(item.id);
+                          item.time = parseInt(item.time);
 
                           myAwesomeDB.collection('notes').insert(item, (err, result) => {
                             if (err) {
