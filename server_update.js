@@ -20,7 +20,7 @@ MongoClient.connect(db.url, (err, database) => {
     if (!x.resultView) {
       rp('https://api.betsapi.com/v1/event/view?token=8334-BCLtMmtKT698vk&event_id=' + x.id)
         .then(function(viewRequest) {
-          console.log('запрос callback_view');
+          console.log('update');
           let viewReq = JSON.parse(viewRequest).results[0];
 
           if (viewReq.time_status === '3') {

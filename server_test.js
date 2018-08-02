@@ -25,7 +25,7 @@ MongoClient.connect(db.url, (err, database) => {
 
         filteredResults = _.filter(results, function(item) {
           if (item.timer) {
-            return item.timer.tm === 20 && showedEvents.indexOf(item.id) === -1
+            return item.timer.tm === 20 || item.timer.tm === 65 || item.timer.tm === 80
           } else {
             return false
           }
@@ -68,13 +68,27 @@ MongoClient.connect(db.url, (err, database) => {
                           item.id = parseInt(item.id);
                           item.time = parseInt(item.time);
 
-                          myAwesomeDB.collection('notes').insert(item, (err, result) => {
-                            if (err) {
-                              console.log(err);
-                            } else {
-                              console.log(result.ops[0]);
-                            }
-                          });
+                          rp('https://api.betsapi.com/v1/event/history?token=8334-BCLtMmtKT698vk&event_id=' + item.id)
+                            .then(function (response4) {
+                              console.log('запрос history');
+
+                              let history = JSON.parse(response4).results;
+                              item.history = history;
+                              item.id = parseInt(item.id);
+                              item.time = parseInt(item.time);
+
+                              myAwesomeDB.collection('notes').insert(item, (err, result) => {
+                                if (err) {
+                                  console.log(err);
+                                } else {
+                                  console.log(result.ops[0].id + ' - ' + result.ops[0].timer.tm);
+                                }
+                              });
+
+                            })
+                            .catch(function (err) {
+                              console.log('request history failed' + err)
+                            });
 
                         })
                         .catch(function (err) {
