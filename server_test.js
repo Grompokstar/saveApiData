@@ -47,60 +47,27 @@ MongoClient.connect(db.url, (err, database) => {
               }
               item.view = view;
 
-              if (true) {
+              rp('https://api.betsapi.com/v1/event/odds?token=8334-BCLtMmtKT698vk&event_id=' + item.id)
+                .then(function (response3) {
+                  console.log('запрос odds');
+                  let odds = JSON.parse(response3).results;
 
-                rp('https://api.betsapi.com/v1/event/odds?token=8334-BCLtMmtKT698vk&event_id=' + item.id)
-                  .then(function (response3) {
-                    console.log('запрос odds');
-                    let odds = JSON.parse(response3).results;
+                  item.odds = odds;
+                  item.id = parseInt(item.id);
+                  item.time = parseInt(item.time);
 
-                    item.odds = odds;
-
-                    if (true) {
-                      showedEvents.push(item.id);
-
-                      rp('https://api.betsapi.com/v1/event/history?token=8334-BCLtMmtKT698vk&event_id=' + item.id)
-                        .then(function (response4) {
-                          console.log('запрос history');
-
-                          let history = JSON.parse(response4).results;
-                          item.history = history;
-                          item.id = parseInt(item.id);
-                          item.time = parseInt(item.time);
-
-                          rp('https://api.betsapi.com/v1/event/history?token=8334-BCLtMmtKT698vk&event_id=' + item.id)
-                            .then(function (response4) {
-                              console.log('запрос history');
-
-                              let history = JSON.parse(response4).results;
-                              item.history = history;
-                              item.id = parseInt(item.id);
-                              item.time = parseInt(item.time);
-
-                              myAwesomeDB.collection('notes').insert(item, (err, result) => {
-                                if (err) {
-                                  console.log(err);
-                                } else {
-                                  console.log(result.ops[0].id + ' - ' + result.ops[0].timer.tm);
-                                }
-                              });
-
-                            })
-                            .catch(function (err) {
-                              console.log('request history failed' + err)
-                            });
-
-                        })
-                        .catch(function (err) {
-                          console.log('request history failed' + err)
-                        });
+                  myAwesomeDB.collection('notes').insert(item, (err, result) => {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      console.log(result.ops[0].id + ' - ' + result.ops[0].timer.tm);
                     }
-
-                  })
-                  .catch(function (err) {
-                    console.log('request odds failed' + err)
                   });
-              }
+
+                })
+                .catch(function (err) {
+                  console.log('request odds failed' + err)
+                });
             })
             .catch(function (err) {
               console.log('request view failed' + err)
