@@ -3,9 +3,10 @@
 rm -r /home/backups/
 
 sudo mongodump --db bets --out /home/backups
-tar -zcvf bets.tar.gz /home/backups/bets
+cd /home/backups
+tar -zcvf bets.tar.gz bets
 
 scp root@195.133.197.97:/home/backups/bets.tar.gz /home/roman/Downloads/
 tar -zxvf /home/roman/Downloads/bets.tar.gz
 
-sudo mongorestore --db bets --drop /home/roman/Downloads/home/backups/bets
+sudo mongorestore --db bets --drop /home/bets
