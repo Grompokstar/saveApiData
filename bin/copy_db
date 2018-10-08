@@ -1,12 +1,17 @@
 #!/bin/bash
 
+node /home/betsApi/update.js
+
 rm -r /home/backups/
 
 sudo mongodump --db bets --out /home/backups
 cd /home/backups
 tar -zcvf bets.tar.gz bets
 
+rm /home/roman/Downloads/bets.tar.gz
+rm -r /home/roman/Downloads/bets
+
 scp root@195.133.197.97:/home/backups/bets.tar.gz /home/roman/Downloads/
 tar -zxvf /home/roman/Downloads/bets.tar.gz
 
-sudo mongorestore --db bets --drop /home/bets
+sudo mongorestore --db bets --drop /home/roman/Downloads/bets
