@@ -13,22 +13,29 @@ MongoClient.connect(db.url, (err, database) => {
   const DB = database.db('bets');
 
   if (err) return console.log(err);
+  let count = 0;
 
   DB.collection('notes').find().forEach( function (x) {
     if (x.timer.tm === 20 && !x.resultView) {
-      rp('https://api.betsapi.com/v1/event/view?token=8334-BCLtMmtKT698vk&event_id=' + x.id)
-        .then(function(viewResp) {
-          console.log('update');
-          let viewResponse = JSON.parse(viewResp).results[0];
-          console.log(viewResponse.time_status);
+      if (count <= 2500) {
+        rp('https://api.betsapi.com/v1/event/view?token=8334-BCLtMmtKT698vk&event_id=' + x.id)
+          .then(function(viewResp) {
+            console.log('update');
+            let viewResponse = JSON.parse(viewResp).results[0];
+            console.log(viewResponse.time_status);
 
-          if (viewResponse.time_status === '3' || viewResponse.time_status === '2') {
-            x.resultView = viewResponse;
+            if (viewResponse.time_status === '3' || viewResponse.time_status === '2') {
+              x.resultView = viewResponse;
 
-            DB.collection('notes').save(x);
-          }
+              DB.collection('notes').save(x);
+            }
 
-        })
+            count++;
+            console.log(count)
+
+          })
+      }
+
     }
 
     /*if (x.trends) {
