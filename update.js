@@ -24,7 +24,13 @@ MongoClient.connect(db.url, (err, database) => {
             let viewResponse = JSON.parse(viewResp).results[0];
             console.log(viewResponse.time_status);
 
-            if (viewResponse.time_status === '3' || viewResponse.time_status === '2') {
+            if (viewResponse.time_status === '3'
+              || viewResponse.time_status === '2'
+              || viewResponse.time_status === '4'
+              || viewResponse.time_status === '5'
+              || viewResponse.time_status === '8'
+              || viewResponse.time_status === '99'
+            ) {
               x.resultView = viewResponse;
 
               DB.collection('notes').save(x);
