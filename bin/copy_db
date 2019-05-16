@@ -3,6 +3,11 @@
 node /home/betsApi/update.js
 
 rm -r /home/backups/
+mongo
+use newBets
+db.notes.remove({})
+
+node /home/betsApi/copyLightDB.js
 
 sudo mongodump --db bets --out /home/backups
 sudo mongodump --db newBets --out /home/backups
@@ -12,11 +17,13 @@ tar -zcvf newBets.tar.gz newBets
 
 rm /home/roman/Downloads/bets.tar.gz
 rm -r /home/roman/bets
+rm /home/roman/Downloads/newBets.tar.gz
+rm -r /home/roman/newBets
 
 scp root@195.133.197.97:/home/backups/bets.tar.gz /home/roman/Downloads/
 scp root@195.133.197.97:/home/backups/newBets.tar.gz /home/roman/Downloads/
 tar -zxvf /home/roman/Downloads/bets.tar.gz
-tar -zxvf /home/roman/Downloads/newBets.tar.gz
+sudo tar -zxvf /home/roman/Downloads/newBets.tar.gz
 
 sudo mongorestore --db bets --drop /home/roman/bets
 sudo mongorestore --db newBets --drop /home/roman/newBets
