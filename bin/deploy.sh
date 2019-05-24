@@ -10,7 +10,7 @@ REMOTE_RELEASES_PATH=$DEPLOY_PATH
 set -o errexit # Exit on error
 
 # Zip project
-zip $ARCHIVE_NAME -r update.js copyLightDB.js
+zip $ARCHIVE_NAME -r server_test.js update.js copyLightDB.js package.json config
 
 # Remote commands
 # Make dir

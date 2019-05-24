@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "export $(cat ./config/deploy/.stage | xargs) && ./bin/deploy.sh"
+    "deploy": "export $(cat ./config/deploy/.stage | xargs) && ./bin/deploy.sh",
+    "deploy_de": "export $(cat ./config/deploy/.DE | xargs) && ./bin/deploy.sh"
   },
   "author": "",
   "license": "ISC",

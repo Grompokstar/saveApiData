@@ -25,7 +25,7 @@ MongoClient.connect(db.url, (err, database) => {
 
         filteredResults = _.filter(results, function(item) {
           if (item.timer) {
-            return item.timer.tm === 20 || item.timer.tm === 65 || item.timer.tm === 80
+            return item.timer.tm === 20
           } else {
             return false
           }
