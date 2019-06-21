@@ -7,11 +7,11 @@ mongo
 use newBets
 db.notes.remove({})
 
-node /home/betsApi/copyLightDB.js
+node /home/cloudscalers/betsApi/copyLightDB.js
 
-sudo mongodump --db bets --out /home/backups
-sudo mongodump --db newBets --out /home/backups
-cd /home/backups
+sudo mongodump --db bets --out /home/cloudscalers/backups
+sudo mongodump --db newBets --out /home/cloudscalers/backups
+cd /home/cloudscalers/backups
 tar -zcvf bets.tar.gz bets
 tar -zcvf newBets.tar.gz newBets
 
@@ -20,8 +20,8 @@ rm -r /home/roman/bets
 rm /home/roman/Downloads/newBets.tar.gz
 rm -r /home/roman/newBets
 
-scp root@195.133.197.97:/home/backups/bets.tar.gz /home/roman/Downloads/
-scp root@195.133.197.97:/home/backups/newBets.tar.gz /home/roman/Downloads/
+scp cloudscalers@176.118.165.150:/home/cloudscalers/backups/bets.tar.gz /home/roman/Downloads/
+scp cloudscalers@176.118.165.150:/home/cloudscalers/backups/newBets.tar.gz /home/roman/Downloads/
 tar -zxvf /home/roman/Downloads/bets.tar.gz
 sudo tar -zxvf /home/roman/Downloads/newBets.tar.gz
 
