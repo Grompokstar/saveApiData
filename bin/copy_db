@@ -1,9 +1,9 @@
 #!/bin/bash
 
-node /home/betsApi/update.js
+node /home/cloudscalers/betsApi/update.js
 
-rm -r /home/backups/
-mongo
+sudo rm -r /home/cloudscalers/backups/
+sudo mongo
 use newBets
 db.notes.remove({})
 
@@ -13,12 +13,12 @@ sudo mongodump --db bets --out /home/cloudscalers/backups
 sudo mongodump --db newBets --out /home/cloudscalers/backups
 cd /home/cloudscalers/backups
 tar -zcvf bets.tar.gz bets
-tar -zcvf newBets.tar.gz newBets
+sudo tar -zcvf newBets.tar.gz newBets
 
 rm /home/roman/Downloads/bets.tar.gz
 rm -r /home/roman/bets
 rm /home/roman/Downloads/newBets.tar.gz
-rm -r /home/roman/newBets
+sudo rm -r /home/roman/newBets
 
 scp cloudscalers@176.118.165.150:/home/cloudscalers/backups/bets.tar.gz /home/roman/Downloads/
 scp cloudscalers@176.118.165.150:/home/cloudscalers/backups/newBets.tar.gz /home/roman/Downloads/
