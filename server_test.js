@@ -17,7 +17,7 @@ MongoClient.connect(db.url, (err, database) => {
   function start() {
     let filteredResults = [];
 
-    rp('https://api.betsapi.com/v2/events/inplay?sport_id=1&token=8334-BCLtMmtKT698vk')
+    rp('https://api.betsapi.com/v2/events/inplay?sport_id=1&token=8334-fosWHlkPaVmESh')
       .then(function (response) {
         console.log('запрос events');
 
@@ -34,7 +34,7 @@ MongoClient.connect(db.url, (err, database) => {
 
         _.forEach(filteredResults, function(item) {
 
-          rp('https://api.betsapi.com/v1/event/view?token=8334-BCLtMmtKT698vk&event_id=' + item.id)
+          rp('https://api.betsapi.com/v1/event/view?token=8334-fosWHlkPaVmESh&event_id=' + item.id)
             .then(function (response2) {
               console.log('запрос view');
 
@@ -47,7 +47,7 @@ MongoClient.connect(db.url, (err, database) => {
               }
               item.view = view;
 
-              rp('https://api.betsapi.com/v1/event/odds?token=8334-BCLtMmtKT698vk&event_id=' + item.id)
+              rp('https://api.betsapi.com/v1/event/odds?token=8334-fosWHlkPaVmESh&event_id=' + item.id)
                 .then(function (response3) {
                   console.log('запрос odds');
                   let odds = JSON.parse(response3).results;

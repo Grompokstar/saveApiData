@@ -13,7 +13,7 @@ MongoClient.connect(db.url, (err, database) => {
 
   DB.collection('notes').find().forEach( function (x) {
     if (!x.trends) {
-      rp('https://api.betsapi.com/v1/event/stats_trend?token=8334-BCLtMmtKT698vk&event_id=' + x.id)
+      rp('https://api.betsapi.com/v1/event/stats_trend?token=8334-fosWHlkPaVmESh&event_id=' + x.id)
         .then(function(viewRequest) {
           console.log('update trend');
           let trends = JSON.parse(viewRequest).results;
